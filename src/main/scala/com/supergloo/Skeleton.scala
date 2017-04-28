@@ -1,7 +1,7 @@
 package com.supergloo
 
-import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.SparkConf
+import org.apache.spark.sql.SparkSession
 
 object Skeleton {
 
@@ -10,17 +10,18 @@ object Skeleton {
     val conf = new SparkConf().setAppName("Skeleton")
     conf.setIfMissing("spark.master", "local[*]")
 
-    val spark = new SparkContext(conf)
-    val sqlContext = new SQLContext(spark)
+    val spark = SparkSession
+      .builder()
+      .config(conf)
+      .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.sqlContext.implicits._
 
-    val df2 = spark.parallelize(1 to 100).toDF
+    val df2 = spark.sparkContext.parallelize(1 to 100).toDF
     val df3 = df2.map( i => i.getInt(0) + 1)
 
     df3.collect().foreach(println)
 
-    readLine()
     spark.stop()
 
   }
