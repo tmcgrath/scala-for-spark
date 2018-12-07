@@ -19,7 +19,7 @@ See the links above for access to the screencasts.
 
 Screencasts cover how to debug in IntelliJ.  If you search elsewhere, you may find references similar to the following
 
-`export SPARK_SUBMIT_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005`
+`export SPARK_SUBMIT_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005`
 
 and using a Remote debugger.  That's cool and works well when doing remote debugging; i.e. attach debugger to Spark code running on your cluster.  Screencasts demonstrate this and other options as well.
 
@@ -31,9 +31,8 @@ To build a deployable jar example
 2. Make sure your cluster is running and issue something similar to following:
 
 ```
-~/Development/dse/spark-submit --class com.supergloo.YourClassName --master spark://master ./target/scala-2.10/NAME-1.0.jar
+<SPARK_HOME>/bin/spark-submit --class com.supergloo.Skeleton --master spark://<SPARK_MASTER>:7077 ./target/scala-2.11/spark-sandbox_2.11-1.0.jar
 ```
 
 replace `master` variable with appropriate value for your environment
-
 call `spark-submit` with path appropriate for your environment
